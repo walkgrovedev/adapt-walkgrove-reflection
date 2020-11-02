@@ -1,3 +1,61 @@
 .reflection {
-    
+
+    &__main {
+
+    }
+
+    &__widget {
+        border: 2px solid @item-color;
+    }
+
+    &__item-title {
+        font-weight: bold;
+    }
+
+    &__item-textbox {
+        width: 100%;
+    }
+
+    &__buttons {
+        margin-top: 1rem;
+        justify-content: space-between;
+
+        .secondary {
+            background-color: @item-color;
+            color: @item-color-inverted;
+            float: right;
+            display: none;
+
+            &.is-visible {
+                display: block;
+            }
+        }
+        
+        display: none;
+
+        &.is-visible {
+            display: flex;
+        }
+    }
+
+    &__message {
+        display: none;
+        margin-top: 1rem;
+        color: @item-color;
+        font-weight: bold;
+
+        &.is-visible {
+            display: flex;
+        }
+    }
+
+    &__pdf {
+        display: none;
+    }
+
+    .reflection__item-textbox {
+        border: none;
+        padding: 1rem;
+    }
+  
 }

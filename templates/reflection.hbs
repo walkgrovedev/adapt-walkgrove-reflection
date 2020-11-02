@@ -1,12 +1,48 @@
 <div class="component__inner reflection__inner">
   {{> component this}} 
 
-  {{!-- <div class="reflection__main">
-  {{#each _items}}
+  <div class="reflection__main">
 
-  {{/each}}
-  </div> 
-  
-  {{#if body}} {{/if}} --}}
+    <div class="reflection__widget">
+      <textarea class="reflection__item-textbox js-reflection-textbox" maxlength="255" rows="10" placeholder="{{{placeholder}}}"  aria-labelledby="input" value="" ></textarea>
+    </div>
 
+    <div class="reflection__buttons button is-visible">
+      <button class="reflection__btn btn js-reflection-save-click"  aria-label="{{{saveText}}}">
+        {{{saveText}}}
+      </button>
+      {{#if exportText}}
+      <button class="reflection__btn btn secondary js-reflection-export-click"  aria-label="{{{exportText}}}">
+        {{{exportText}}}
+      </button>
+      {{/if}}
+    </div>
+
+    <div class="reflection__message">
+      {{{message}}}
+    </div>
+
+    {{#if pdf}}
+    {{#each pdf}}
+    <div class="reflection__pdf">
+      <div class="reflection__pdf-image">
+        {{{image}}}
+      </div>
+      <div class="reflection__pdf-title">
+        {{{title}}}
+      </div>
+      <div class="reflection__pdf-subtitle">
+        {{{subTitle}}}
+      </div>
+      <div class="reflection__pdf-contenttitle">
+        {{{contentTitle}}}
+      </div>
+      <div class="reflection__pdf-content">
+        {{{content}}}
+      </div>
+    </div>
+    {{/each}}
+    {{/if}}
+
+  </div>
 </div>

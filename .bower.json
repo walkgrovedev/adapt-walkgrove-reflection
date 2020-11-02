@@ -1,7 +1,10 @@
 {
   "name": "adapt-walkgrove-reflection",
-  "version": "1.0.0",
-  "framework": ">=5",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/walkgrovedev/adapt-walkgrove-reflection.git"
+  },
+  "framework": "5",
   "homepage": "https://github.com/walkgrovedev/adapt-walkgrove-reflection.git",
   "component": "reflection",
   "displayName": "Reflection",
@@ -12,14 +15,14 @@
     "adapt-component"
   ],
   "license": "GPL-3.0",
-  "_release": "1.0.0",
+  "_release": "5fc76689b9",
   "_resolution": {
-    "type": "version",
-    "tag": "v1.0.0",
-    "commit": "ee2952fedacf99c49eb56e093bd77647c8b15b99"
+    "type": "branch",
+    "branch": "master",
+    "commit": "5fc76689b9bc22429c4eecda7255b2be0fd4ada6"
   },
   "_source": "git://github.com/walkgrovedev/adapt-walkgrove-reflection.git",
-  "_target": "1.0.0",
+  "_target": "*",
   "_originalSource": "adapt-walkgrove-reflection",
   "_direct": true
 }
