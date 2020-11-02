@@ -29,6 +29,88 @@
       "validators": [],
       "help": "This is the instruction text",
       "translatable": true
+    },
+    "saveText": {
+      "type": "string",
+      "required": true,
+      "translatable": true
+    },
+    "exportText": {
+      "type": "string",
+      "required": true,
+      "translatable": true
+    },
+    "placeholder": {
+      "type": "string",
+      "required": true,
+      "translatable": true
+    },
+    "message": {
+      "type": "string",
+      "required": true,
+      "translatable": true
+    },
+    "pdf": {
+      "type": "array",
+      "required": true,
+      "title": "PDF details",
+      "items": {
+        "type": "object",
+        "required": true,
+        "properties": {
+          "image": {
+            "type": "string",
+            "required": true,
+            "default": "",
+            "title": "Image base URL",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": true
+          },
+          "title": {
+            "type": "string",
+            "required": true,
+            "default": "",
+            "title": "The PDF title",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": true
+          },
+          "subTitle": {
+            "type": "string",
+            "required": true,
+            "default": "",
+            "title": "The PDF sub title",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": true
+          },
+          "contentTitle": {
+            "type": "string",
+            "required": true,
+            "default": "",
+            "title": "A title for the content of the PDF",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": true
+          },
+          "content": {
+            "type": "string",
+            "required": true,
+            "default": "",
+            "title": "Content for the PDF",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": true
+          }
+        }
+      }
     }
+
   }
 }
