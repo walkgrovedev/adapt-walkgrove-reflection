@@ -1,0 +1,19 @@
+{
+    "name": "adapt-walkgrove-reflection",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/walkgrovedev/adapt-walkgrove-reflection.git"
+    },
+    "framework": "5",
+    "version": "1.0.0",
+    "homepage": "https://github.com/walkgrovedev/adapt-walkgrove-reflection.git",
+    "component": "reflection",
+    "displayName": "Reflection",
+    "description": "A component ...",
+    "main": "/js/adapt-walkgrove-reflection.js",
+    "keywords": [
+        "adapt-plugin",
+        "adapt-component"
+    ],
+    "license": "GPL-3.0"
+}
