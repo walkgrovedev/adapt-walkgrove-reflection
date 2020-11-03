@@ -3,14 +3,18 @@
 
   <div class="reflection__main">
 
+    {{#if saveText}}
     <div class="reflection__widget">
       <textarea class="reflection__item-textbox js-reflection-textbox" maxlength="255" rows="10" placeholder="{{{placeholder}}}"  aria-labelledby="input" value="" ></textarea>
     </div>
+    {{/if}}
 
     <div class="reflection__buttons button is-visible">
+      {{#if saveText}}
       <button class="reflection__btn btn js-reflection-save-click"  aria-label="{{{saveText}}}">
         {{{saveText}}}
       </button>
+      {{/if}}
       {{#if exportText}}
       <button class="reflection__btn btn secondary js-reflection-export-click"  aria-label="{{{exportText}}}">
         {{{exportText}}}

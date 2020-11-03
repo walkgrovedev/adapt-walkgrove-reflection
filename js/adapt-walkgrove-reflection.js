@@ -39,6 +39,11 @@ define([
         }
 
       }
+
+      if(this.model.get('saveText') === "") {
+        this.$('.js-reflection-export-click').addClass('is-visible');
+      }
+
     },
 
     setupInview: function() {
@@ -77,7 +82,6 @@ define([
       }
       
       this._data = reflectionData;
-      console.log(this._data);
       //save to scorm
       Adapt.offlineStorage.set('reflection_data', reflectionData);
       
@@ -93,6 +97,11 @@ define([
 
     onExportPDF: function() {
 
+      if (this._data === '') {
+        let reflectionData = Adapt.offlineStorage.get('reflection_data');
+        this._data = reflectionData;
+      }
+      
       require(['https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.0.0/jspdf.umd.js'], ({ jsPDF }) => {
         const doc = new jsPDF();
         
