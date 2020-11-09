@@ -11,6 +11,7 @@
         "instruction": "",
         "saveText": "Save",
         "exportText": "Export as PDF",
+        "question": "Question above text input",
         "placeholder": "Your thoughts",
         "message": "You've saved your thoughts.",
         "pdf": [
@@ -20,6 +21,21 @@
                 "subTitle": "A subtitle, if required",
                 "contentTitle": "The title for any included content",
                 "content": "The content to include wihtin the PDF."
+            }
+        ],
+        "_items": [
+            {
+                "title": "Step 1",
+                "subtitle": "Subtitle content goes in here ...",
+                "question": "What are we asking ...?",
+                "_colour": "#fff",
+                "_bgcolour": "#000"
+            },
+            {
+                "title": "Step 2",
+                "question": "What are we asking for this reflection input ...?",
+                "_colour": "#fff",
+                "_bgcolour": "#333"
             }
         ],
         "_pageLevelProgress": {

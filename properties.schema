@@ -32,12 +32,17 @@
     },
     "saveText": {
       "type": "string",
-      "required": true,
+      "required": false,
       "translatable": true
     },
     "exportText": {
       "type": "string",
-      "required": true,
+      "required": false,
+      "translatable": true
+    },
+    "question": {
+      "type": "string",
+      "required": false,
       "translatable": true
     },
     "placeholder": {
@@ -107,6 +112,67 @@
             "validators": [],
             "help": "",
             "translatable": true
+          }
+        }
+      }
+    },
+    "_items": {
+      "type": "array",
+      "required": false,
+      "title": "Textarea items",
+      "items": {
+        "type": "object",
+        "required": true,
+        "properties": {
+          "title": {
+            "type": "string",
+            "required": false,
+            "default": "",
+            "title": "Textrea title",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": true
+          },
+          "subtitle": {
+            "type": "string",
+            "required": false,
+            "default": "",
+            "title": "Textrea subtitle",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": true
+          },
+          "question": {
+            "type": "string",
+            "required": false,
+            "default": "",
+            "title": "Textrea question",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": true
+          },
+          "_colour": {
+            "type": "string",
+            "required": false,
+            "default": "",
+            "title": "Textrea title/subtitle text colour",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": false
+          },
+          "_bgcolour": {
+            "type": "string",
+            "required": false,
+            "default": "",
+            "title": "Textrea question title/subtitle background colour",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": false
           }
         }
       }

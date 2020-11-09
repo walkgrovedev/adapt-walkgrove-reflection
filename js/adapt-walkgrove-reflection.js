@@ -30,11 +30,26 @@ define([
         for(let r=0; r<reflects.length-1; r++){
           const reflect = reflects[r].split(":");
           if (reflect[0] === this.model.get('_id')) {
-            this.$('.reflection__item-textbox').val(reflect[2]);
 
+            // one input ...?
+            if(!this.model.get('_items')) {
+
+              this.$('.reflection__item-textbox').val(reflect[4]);
+
+            } else {
+
+              this.model.get('_items').forEach(function(item, i) {
+                if(i === Number(reflect[1])) {
+                  this.$('.reflection__item-textbox').eq(i).val(reflect[4]);
+                }
+              });
+
+            }
+            
             if(this.model.get('exportText') != "") {
               this.$('.js-reflection-export-click').addClass('is-visible');
             }
+
           }
         }
 
@@ -59,27 +74,79 @@ define([
     onSaveData: function() {
       // save to scorm data
       let reflectionData = Adapt.offlineStorage.get('reflection_data');
-      if (reflectionData === 'undefined' || reflectionData === null) {
-        reflectionData = this.model.get('_id') + ':' + this.model.get('displayTitle') + ':' + this.$('.reflection__item-textbox').val() + ',';
-      } else {
-        //check if already exists to overwrite - split string into array, check _id
-        const reflects = reflectionData.split(",");
-        let found = false;
-        let newData = "";
-        for(let r=0; r<reflects.length-1; r++){
-          let reflect = reflects[r].split(":");
-          if (reflect[0] === this.model.get('_id')) {
-            found =  true;
-            reflect[2] = this.$('.reflection__item-textbox').val();
-          }
-          newData += reflect[0].toString() + ':' + reflect[1].toString() + ':' + reflect[2].toString() + ','
-        }
-        if (found) {
-          reflectionData = newData;
+      
+      // one input ...?
+      if(!this.model.get('_items')) {
+
+        const questionText = this.model.get('question') ? this.model.get('question') : '';
+
+        if (reflectionData === 'undefined' || reflectionData === null) {
+          reflectionData = this.model.get('_id') + ':0:' + this.model.get('displayTitle') + ':' + questionText + ':' + this.$('.reflection__item-textbox').val() + ': : ,';
         } else {
-          reflectionData += this.model.get('_id') + ':' + this.model.get('displayTitle') + ':' + this.$('.reflection__item-textbox').val() + ',';
+          //check if already exists to overwrite - split string into array, check _id
+          const reflects = reflectionData.split(",");
+          let found = false;
+          let newData = "";
+          for(let r=0; r<reflects.length-1; r++){
+            let reflect = reflects[r].split(":");
+            if (reflect[0] === this.model.get('_id')) {
+              found =  true;
+              reflect[4] = this.$('.reflection__item-textbox').val();
+            }
+            newData += reflect[0].toString() + ':' + reflect[1].toString() + ':' + reflect[2].toString() + ':' + reflect[3].toString() + ':' + reflect[4].toString() + ':' + reflect[5].toString() + ':' + reflect[6].toString() + ','
+          }
+          if (found) {
+            reflectionData = newData;
+          } else {
+            reflectionData += this.model.get('_id') + ':0:' + this.model.get('displayTitle') + ':' + questionText + ':' + this.$('.reflection__item-textbox').val() + ': : ,';
+          }
         }
+
+      } else {
+
+        
+        
+        if (reflectionData === 'undefined' || reflectionData === null) {
+          reflectionData = '';
+          this.model.get('_items').forEach((item, i) => {
+            const questionText = item.question ? item.question : ' ';
+            const titleText = item.title ? item.title : ' ';
+            const subTitleText = item.subtitle ? item.subtitle : ' ';
+            reflectionData += this.model.get('_id') + ':' + i + ':' + this.model.get('displayTitle') + ':' + questionText + ':' + this.$('.reflection__item-textbox').eq(i).val() + ':' + titleText + ':' + subTitleText + ',';
+          });
+        } else {
+          //check if already exists to overwrite - split string into array, check _id
+          const reflects = reflectionData.split(",");
+          let found = false;
+          let newData = "";
+          for(let r=0; r<reflects.length-1; r++){
+            let reflect = reflects[r].split(":");
+            if (reflect[0] === this.model.get('_id')) {
+              found =  true;
+              this.model.get('_items').forEach(function(item, i) {
+                if(i === Number(reflect[1])) {
+                  reflect[4] = this.$('.reflection__item-textbox').eq(i).val();
+                }
+              });
+            }
+            newData += reflect[0].toString() + ':' + reflect[1].toString() + ':' + reflect[2].toString() + ':' + reflect[3].toString() + ':' + reflect[4].toString() + ':' + reflect[5].toString() + ':' + reflect[6].toString() + ','
+          }
+          if (found) {
+            reflectionData = newData;
+          } else {
+            this.model.get('_items').forEach((item, i) => {
+              const questionText = item.question ? item.question : ' ';
+              const titleText = item.title ? item.title : ' ';
+              const subTitleText = item.subtitle ? item.subtitle : ' ';
+              reflectionData += this.model.get('_id') + ':' + i + ':' + this.model.get('displayTitle') + ':' + questionText + ':' + this.$('.reflection__item-textbox').eq(i).val() + ':' + titleText + ':' + subTitleText + ',';
+            });
+          }
+
+        }
+
       }
+
+      console.log(this._data);
       
       this._data = reflectionData;
       //save to scorm
@@ -104,17 +171,18 @@ define([
       
       require(['https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.0.0/jspdf.umd.js'], ({ jsPDF }) => {
         const doc = new jsPDF();
+
+        const pageHeight = doc.internal.pageSize.height;
+
+        const d = new Date();
+       const dateToday = '' + d.getDate() + (d.getMonth() + 1) + d.getFullYear() + '';
+      
         
         let yPos = 10;
         const leftPos = 10;
         const centerPos = 100;
         const maxWidth = 190;
-        const bottomPos = 290;
         
-        const d = new Date();
-        const dateToday = '' + d.getDate() + (d.getMonth() + 1) + d.getFullYear() + '';
-        const dateToShow = '' + d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + '';
-
         const pdfImage = this.$('.reflection__pdf-image').html();
         doc.addImage(pdfImage, 'png', leftPos, yPos, maxWidth, 53, '', 'none', 0);
         yPos += 73;
@@ -152,32 +220,82 @@ define([
         doc.text(pdfBody, centerPos, yPos, { align: 'center', maxWidth: maxWidth });
         yPos += 20;
 
+        let tempID = '';
         const reflects = this._data.split(",");
         for(let r=0; r<reflects.length-1; r++){
           const reflect = reflects[r].split(":");
-            doc.setTextColor(98, 166, 10);
-            doc.setFont("helvetica", "bold");
-            let textTitle = reflect[1];
+            
+          doc.setTextColor(98, 166, 10);
+          doc.setFontSize(17);
+          doc.setFont("helvetica", "bold");
+          let textTitle = reflect[2];
+          const id = reflect[0];
+          if (id !== tempID) {
+            tempID = id;
             doc.text(textTitle, leftPos, yPos, { align: 'left', maxWidth: maxWidth });
             yPos += 10;
+            yPos = this.checkNewPagePDF(doc, yPos, pageHeight);
+          }
 
-            doc.setTextColor(0, 0, 0);
-            doc.setFont("helvetica", "normal");
-            let textAction = reflect[2];
-            doc.text(textAction, leftPos, yPos, { align: 'left', maxWidth: maxWidth });
-            yPos += 25;
+          doc.setTextColor(0, 0, 0);
+          doc.setFontSize(13);
+          let textInputTitles = '';
+          if (reflect[5] !== ' ') { 
+            textInputTitles += reflect[5]; 
+            if (reflect[6] !== ' ') {
+              textInputTitles += ' - ';
+            }
+          }
+          if (reflect[6] !== ' ') { textInputTitles += reflect[6]; }
+          if (textInputTitles !== '') {
+            doc.text(textInputTitles, leftPos, yPos, { align: 'left', maxWidth: maxWidth });
+            yPos += 10;
+            yPos = this.checkNewPagePDF(doc, yPos, pageHeight);
+          }
+          
+          doc.setTextColor(98, 166, 10);
+          let textQuesTitle = reflect[3];
+          if (textQuesTitle !== ' ') {
+            doc.text(textQuesTitle, leftPos, yPos, { align: 'left', maxWidth: maxWidth });
+            yPos += 10;
+            yPos = this.checkNewPagePDF(doc, yPos, pageHeight);
+          }
+
+          doc.setTextColor(0, 0, 0);
+          doc.setFont("helvetica", "normal");
+          let textAction = reflect[4];
+          doc.text(textAction, leftPos, yPos, { align: 'left', maxWidth: maxWidth });
+          yPos += 35;
+          yPos = this.checkNewPagePDF(doc, yPos, pageHeight);
         }
 
-        doc.setFont("helvetica", "italic");
-        doc.text(dateToShow, centerPos, bottomPos, { align: 'center', maxWidth: maxWidth });
+        this.addFooter(doc);
 
         doc.save("reflection-" + dateToday + ".pdf");
+
       });
 
-      // this.$('.reflection__message').addClass('is-visible');
-      // this.$('.reflection__buttons').removeClass('is-visible');
+    },
 
-      // this.setCompletionStatus();
+    checkNewPagePDF: function(doc, yPos, pageHeight) {
+      if (yPos >= pageHeight) {
+          this.addFooter(doc);
+          doc.addPage();
+          yPos = 10; // Restart height position
+      }
+      return yPos;
+    },
+
+    addFooter: function(doc) {
+      const d = new Date();
+      const dateToShow = '' + d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + '';
+        
+      const centerPos = 100;
+      const maxWidth = 190;
+      const bottomPos = 290;
+        
+      doc.setFont("helvetica", "italic");
+      doc.text(dateToShow, centerPos, bottomPos, { align: 'center', maxWidth: maxWidth });
     },
 
     /**

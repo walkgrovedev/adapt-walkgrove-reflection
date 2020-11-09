@@ -3,11 +3,36 @@
 
   <div class="reflection__main">
 
-    {{#if saveText}}
-    <div class="reflection__widget">
-      <textarea class="reflection__item-textbox js-reflection-textbox" maxlength="255" rows="10" placeholder="{{{placeholder}}}"  aria-labelledby="input" value="" ></textarea>
-    </div>
+    {{#if _items}}
+      {{#each _items}}
+        <div class="reflection__widget multiple">
+          <div class="reflection__item-titles">
+            {{#if subtitle}}
+              {{#if title}}
+              <div class="reflection__item-title " style="background-color:{{_bgcolour}};color:{{_colour}};" >{{{title}}}</div>
+              {{/if}}
+              <div class="reflection__item-subtitle" style="background-color:{{_bgcolour}};color:{{_colour}};">{{{subtitle}}}</div>
+            {{else}}
+              {{#if title}}
+              <div class="reflection__item-title wide" style="background-color:{{_bgcolour}};color:{{_colour}};" >{{{title}}}</div>
+              {{/if}}
+            {{/if}}
+          </div>
+          <div class="reflection__item-question">{{{question}}}</div>
+          <textarea class="reflection__item-textbox js-reflection-textbox" maxlength="255" rows="10" placeholder="{{{../placeholder}}}"  aria-labelledby="input" value="" ></textarea>
+        </div>
+      {{/each}}
+    {{ else }}
+      {{#if saveText}}
+      <div class="reflection__widget">
+        {{#if question}}
+        <div class="reflection__item-question">{{{question}}}</div>
+        {{/if}}
+        <textarea class="reflection__item-textbox js-reflection-textbox" maxlength="255" rows="10" placeholder="{{{placeholder}}}"  aria-labelledby="input" value="" ></textarea>
+      </div>
+      {{/if}}
     {{/if}}
+
 
     <div class="reflection__buttons button is-visible">
       {{#if saveText}}
