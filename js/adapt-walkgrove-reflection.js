@@ -1,8 +1,9 @@
 define([
   'core/js/adapt',
   'core/js/views/componentView',
-  'core/js/models/componentModel'
-], function(Adapt, ComponentView, ComponentModel) {
+  'core/js/models/componentModel'//,
+  //'core/js/models/fontModel'
+], function(Adapt, ComponentView, ComponentModel) { //, FontModel
 
   var ReflectionView = ComponentView.extend({
 
@@ -146,7 +147,7 @@ define([
 
       }
 
-      console.log(this._data);
+      //console.log(this._data);
       
       this._data = reflectionData;
       //save to scorm
@@ -158,6 +159,8 @@ define([
       if(this.model.get('exportText') != "") {
         this.$('.js-reflection-export-click').addClass('is-visible');
       }
+
+      // console.log(FontModel);
 
       this.setCompletionStatus();
     },
@@ -174,8 +177,33 @@ define([
 
         const pageHeight = doc.internal.pageSize.height;
 
+        // doc.addFileToVFS("fonts/arial.ttf", getDefault());
+        // doc.addFont("fonts/arial.ttf", "Arial", "normal");
+
+        // doc.setFont("Arial");
+
+        // switch (Adapt.offlineStorage.get('lang')) {
+        //   case 'zh-s':
+        //   doc.addFileToVFS('fonts/MicrosoftYaHei-01-normal.ttf', FontModel.getChinese());
+        //   doc.addFont('fonts/MicrosoftYaHei-01-normal.ttf', 'MicrosoftYaHei-01', 'normal');
+        //   doc.setFont("fonts/MicrosoftYaHei-01");
+        //   break;
+        //   case 'ar':
+        //   doc.addFileToVFS('fonts/PTSans-normal.ttf', FontModel.getArabic());
+        //   doc.addFont('fonts/PTSans-normal.ttf', 'PTSans', 'normal');
+        //   doc.setFont("fonts/PTSans");
+        //   // doc.text('مرحبا', this.pdfWidth, 10);
+        //   break;
+        //   case 'ru':
+        //   doc.addFileToVFS('fonts/Amiri-Regular-normal.ttf', FontModel.getRussian());
+        //   doc.addFont('fonts/Amiri-Regular-normal.ttf', 'Amiri-Regular', 'normal');
+        //   doc.setFont("fonts/Amiri-Regular");
+        //   //doc.text("А ну чики брики и в дамки!", 10, 10);
+        //   break;
+        // }
+
         const d = new Date();
-       const dateToday = '' + d.getDate() + (d.getMonth() + 1) + d.getFullYear() + '';
+        const dateToday = '' + d.getDate() + (d.getMonth() + 1) + d.getFullYear() + '';
       
         
         let yPos = 10;
