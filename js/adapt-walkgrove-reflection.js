@@ -151,7 +151,8 @@ define([
       
       this._data = reflectionData;
       //save to scorm
-      Adapt.offlineStorage.set('reflection_data', reflectionData);
+      //Adapt.offlineStorage.set('reflection_data', reflectionData);
+      Adapt.offlineStorage.set('r', reflectionData);
       
       // show as saved...
       this.$('.reflection__message').addClass('is-visible');
