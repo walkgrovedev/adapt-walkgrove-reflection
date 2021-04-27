@@ -273,7 +273,7 @@ define([
 
         this.addFooter(doc);
 
-        doc.save("wellbeing-reflection-" + dateToday + ".pdf");
+        doc.save("reflection-" + dateToday + ".pdf");
 
       });
 
@@ -290,7 +290,7 @@ define([
 
     addFooter: function(doc) {
       const d = new Date();
-      const dateToShow = 'wellbeing - reflection ' + d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + '';
+      const dateToShow = 'reflection ' + d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + '';
         
       const centerPos = 100;
       const maxWidth = 190;
