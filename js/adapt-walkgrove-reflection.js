@@ -213,7 +213,7 @@ define([
         const centerPos = 100;
         const maxWidth = 190;
         
-        const pdfImage = this.$('.reflection__pdf-image').html();
+        const pdfImage = this.model.get('pdf')[0].image; //this.$('.reflection__pdf-image').html();
         doc.addImage(pdfImage, 'png', leftPos, yPos, maxWidth, 90, '', 'none', 0);
         yPos += 105;
         
