@@ -71,7 +71,7 @@
             "inputType": "Text",
             "validators": [],
             "help": "",
-            "translatable": true
+            "translatable": false
           },
           "title": {
             "type": "string",
